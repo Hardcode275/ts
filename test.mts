@@ -387,7 +387,7 @@ data.items.map(repo => {
 })
 
 // en typescript se utiliza para validar los tipos de datos, es mentira que se escribe menos codigo.
-
+//se 
 
 
 
