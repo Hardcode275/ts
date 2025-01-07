@@ -387,7 +387,155 @@ data.items.map(repo => {
 })
 
 // en typescript se utiliza para validar los tipos de datos, es mentira que se escribe menos codigo.
-//se 
+
+
+interface heroes  {
+ 
+    id: string,
+    name: string,
+    age : number
+    saludar: () => void
+}
+
+const heroes: heroes = {
+        id: "1",
+        name: "Thor",
+        age: 1500,
+        saludar: () => {
+            console.log ( `hola`)
+        }
+    }
+
+
+
+    interface proucto {
+        id: number,
+        name: string,
+        price: number,
+        quantity: number
+    }
+
+
+    interface zapatilla extends proucto { // al extender se le da la oportunidad de traer de vuelta tolo los atrbutos que tenga la clave producto en este caso.
+        talla: number
+    }
+
+    interface carritoDeCompras {
+
+        totalPrice: number,
+        //products: proucto[] // est se refiere a una interfaz de un array de productos.
+        products:( proucto|zapatilla)[] // para que pueda usarse dos a la vez
+    }
+
+    interface CarritoOPS { // las funciones para el carrto de compras 
+        add: (product: proucto) => void,
+        remove: (id: number) => void,
+        clear: () => void,
+    }
+
+    // una de las diferencias entre una interfaz y un type es que en la interfaz uno puede utilizar dos veces el nombre de la interfaz y colocar el dos interfaces individuales el mismo nombre pero con diferentes parametros y con los typos identifica de una .
+
+    // las interfaces no van con datos primitivos  y los types si van con datos primitivos.
+
+    // clase o objeto se utiliza interface, si es un tipo un type, para las promts de react se utiliza aveces interfaces pero mejor con types
+
+    // esto es un ejemplo de dato primitivo type HeroId = `${string}-${string}-${string}-${string}-${string}`;
+    // y luego si se puede ocupar interfaz de esta forma interface Hero { id: HeroId, name: string, age: number}
+    const carrito: carritoDeCompras = {
+
+        totalPrice: 100,
+        products: [
+            {
+                id: 1,
+                name: "producto 1",
+                price: 10,
+                quantity: 1,
+                talla: 42
+            }
+        ]
+
+
+    }
+
+
+//narrowing types
+
+function mostrarLongitud ( objeto: number | string) {
+    if ( typeof objeto === "string"){ // narrowing types, se utiliza para que sepa que es un string y no un number.
+    return objeto.length;  //
+    }
+
+    return objeto.toString().length; // si no es un string se convierte a string y se le saca la longitud.
+
+}
+
+mostrarLongitud(4); // no se puede hacer porque el 4 no tiene la propiedad length, para eso se utiliza el typeof para saber si es un string o un number.
+
+
+
+interface Mario {
+    company: `Nintendo`,
+    nombre: string,
+    saltar: () => void // que tenga metodos o funciones.
+}
+
+interface Sonic {
+
+    company: `Sega`,
+    nombre: string,
+    correr: () => void
+}
+
+type Personaje = Mario | Sonic; // se utiliza para poder hacer un tipo de dato que sea de los dos, para poder hacer una interfaz de los dos.
+
+function jugar(personaje: Personaje) {
+    if (personaje.company === `Nintendo`){
+        personaje.saltar(); //<-- este es mario
+        return;
+    }
+
+    personaje.correr(); //<-- este es sonic
+    
+}
+
+interface heroess {
+
+    nombre: string,
+    saltar:() => void
+
+}
+
+interface heroess2 {
+    
+    nombre: string,
+    correr:() => void
+}
+
+type Heroes3 = heroess | heroess2
+//types guards hay que evitarlos
+function CheckIsHeroess(heroes3: Heroes3): heroes3 is heroess {
+    return (heroes3 as heroess).saltar !== undefined;
+   
+}
+
+function jaguar(heroes3: Heroes3){
+    if(CheckIsHeroess(heroes3)){
+        heroes3.saltar();
+        return
+    } else {
+        heroes3.correr();
+        return;
+    }  
+
+}
+
+// una propiedad privada se utliza de esta forma #nombreDeLaPropiedad dentro de una clase
+
+
+
+
+
+
 
 
 
